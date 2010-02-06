@@ -187,7 +187,7 @@ class OptionFrame(wx.Frame):
 	if(value == "YES"):
 		self.checkbox_10.SetValue(1)
 	else:
-		self.checkbox_10.SetSelection(0)
+		self.checkbox_10.SetValue(0)
 	value = myframe.config_get("MSERVER")
 	self.text_ctrl_3.SetValue(value)
 	value = myframe.config_get("MUSER")

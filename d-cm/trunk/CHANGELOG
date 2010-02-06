@@ -19,3 +19,5 @@ v.0.02
  -> dcm
 - File Manager Changed -> Advanced tab => rename + chmod (octal and symbolic in both directions (get and set chmod))
  -> dcm
+-Fixed error in code: SetSelection(0) -> SetValue(0)
+ -> dcm
