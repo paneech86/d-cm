@@ -21,3 +21,5 @@ v.0.02
  -> dcm
 -Fixed error in code: SetSelection(0) -> SetValue(0)
  -> dcm
+-Improved extlib function
+ -> dcm

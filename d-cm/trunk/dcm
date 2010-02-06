@@ -742,7 +742,7 @@ class MyFrame(wx.Frame):
 
     def dopen(self, event): # wxGlade: MyFrame.<event_handler>
         dopn = self.extlib(self.label_2.GetLabel(),"NO")
-	os.system(dopn + " " + self.filedir + "/" + self.label_2.GetLabel())
+	os.system(dopn + " " + self.filedir + "/" + self.label_2.GetLabel() + " &")
 
     def extlib(self,fl,at):
 	if(self.dopen):
