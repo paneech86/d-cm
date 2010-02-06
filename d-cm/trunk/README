@@ -1,0 +1,74 @@
+README
+
+Contents:
+-Instalation
+-Directory Tree
+-Running
+-Features
+->filetree
+->mysql
+->deditor
+->ftp
+->dcmd
+->derminal
+
+Installation
+
+-Download the latest .tar.gz file from sourceforge (http://www.sourceforge.net/projects/d-cm)
+-extract it & you can start using dcm
+
+Directory Tree
+
+-DCM
+->DOPEN		special folder for dopen
+-->extlib.ded	returns a command based on the extension (*)
+->dcm		main program
+->dcmlog.ded	the log file, if there appears an error you have to check this line
+->CHANGELOG	the changelog
+->README	this file
+->config.ded	the configuration file
+->dcmd		a command line file (**)
+->ftp.ded	a file for handling ftp (***)
+
+(*)	for example: .txt gives gedit  .mp3 gives vlc   .py gives xterm -hold -e
+(**)	this file has handy options like returning the status, giving the ammount of rules in exlib,...
+(***)	it's a copy of the last file downloaded from the ftp-server
+
+Running
+
+I suppose dcm is located in your home directory.
+
+-Terminal:
+	/home/username/DCM/dcm &	(the & sign is optional)
+-Nautilus:
+	- goto /home/username/DCM
+	- doubleclick on dcm
+	- choose run
+
+Features
+
+-File Manager
+	The file Manager has 2 parts
+	the left part is to navigate trough your directories, by doubleclicking the selected file will appear in the right window
+	or if it is a folder (indicated with [F]) it will display the folder contents on the left.
+	the right part is to control a file. You can rename the file, open the file with its default program (DOPEN needed), ...
+-MySql
+	This tab, is to control your Databases.  (DCM currently only supports MySql databases)
+	After specifying your host,user and password in the configuration window (DCM->Options->Mysql) and starting mysql (MySql->Start)
+	you will see on the left a list with all your tables and on the right, a box to enter queries, and an output box
+-Deditor
+	This is a basic editor which can do simple tasks and upload it's content to the web trough ftp.
+-Ftp
+	This works the same way as the file manager except it shows a ftp dir.
+-Dcmd
+	This is a program that is only available from terminal.
+	the possible commands:
+	dcmd -s		simply returns: 'DCM is running' or 'DCM is not running'
+	dcmd -e		returns the ammount of rules in DOPEN/extlib.de
+	*futur commands:
+	dcmd -m		mysql default on/off
+	dcmd -f		ftp default on/off
+	dcmd -v		DCM version
+	dcmd -u		Update/Upgrade DCM with curl + tar
+-Derminal
+	This will be a futur project to integrate a terminal system in DCM

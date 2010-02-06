@@ -1,0 +1,21 @@
+CHANGELOG
+
+v.0.02
+- better DOPEN integration
+ -> dcm
+ -> extlib.ded
+- Add doubleclick integration in mysql tab
+ -> dcm
+- Options/Configuration cleaned up
+ -> dcm
+ -> config.ded
+- FTP Added to Options
+ -> dcm
+- Added status option in command utility: dcmd -s
+ -> dcmd
+- File Manager Changed + size in b/kb/mb/gb/tb
+ -> dcm
+- File Manager Changed -> Basic / Advanced tabs
+ -> dcm
+- File Manager Changed -> Advanced tab => rename + chmod (octal and symbolic in both directions (get and set chmod))
+ -> dcm

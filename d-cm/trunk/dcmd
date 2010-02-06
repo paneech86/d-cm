@@ -1,0 +1,24 @@
+#!/bin/bash
+extlib_count () {
+	loc=`dirname $0`/DOPEN/extlib.ded
+	echo `wc -l $loc`
+}
+status () {
+	if [[ `ps ax | grep -v grep | grep dcm$` ]]
+	then
+		echo "dcm is running"
+	else
+		echo "dcm is not running"
+	fi
+}
+while getopts es opt
+do
+    case "$opt" in
+      e)  extlib_count ;;
+      s)  status ;;
+      \?) echo >&2 \
+	  "usage: $0 [-s]"
+	  exit 1;;
+    esac
+done
+shift `expr $OPTIND - 1`

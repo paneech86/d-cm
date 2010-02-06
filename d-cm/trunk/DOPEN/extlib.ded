@@ -1,0 +1,11 @@
+@DCM:TITLE|DOPEN
+@DCM:VERSION|1.101
+txt|gedit
+ded|gedit
+cpp|gedit
+html|gedit
+css|gedit
+php|gedit
+py|xterm -hold -e
+mp4|vlc
+mp3|vlc
