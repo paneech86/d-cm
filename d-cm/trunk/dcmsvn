@@ -10,7 +10,7 @@ status () {
 commit () {
 	echo "Commit information?"
 	read commit
-	svn commit -m $commit
+	svn commit -m "$commit"
 }
 while getopts csS opt
 do
