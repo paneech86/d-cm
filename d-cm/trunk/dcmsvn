@@ -1,0 +1,29 @@
+#!/bin/bash
+sync () {
+	echo "user name?"
+	read username
+	svnsync synchronize https://d-cm.googlecode.com/svn --sync-username $username
+}
+status () {
+	svn status
+}
+commit () {
+	echo "Commit information?"
+	read commit
+	svn commit -m $commit
+}
+while getopts csS opt
+do
+    case "$opt" in
+      c)  commit ;;
+      S)  sync ;;
+      s)  status ;;
+      \?) echo >&2 \
+	  "usage: $0 [-c] [-s] [-S]"
+	  "-c: commit"
+	  "-s: status"
+	  "-S: synchronize"
+	  exit 1;;
+    esac
+done
+shift `expr $OPTIND - 1`
