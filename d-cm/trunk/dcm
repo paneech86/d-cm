@@ -12,24 +12,54 @@ except:
 # begin wxGlade: extracode
 # end wxGlade
 
-class ChangeDirPanel(wx.Dialog):
+class ChangeDirPanel(wx.Frame):
     def __init__(self, *args, **kwds):
-        # content of this block not found: did you rename this class?
-        pass
+        # begin wxGlade: ChangeDirPanel.__init__
+        kwds["style"] = wx.DEFAULT_FRAME_STYLE
+        wx.Frame.__init__(self, *args, **kwds)
+        self.panel_1 = wx.Panel(self, -1)
+        self.text_ctrl_16 = wx.TextCtrl(self.panel_1, -1, "")
+        self.button_5 = wx.Button(self.panel_1, -1, "C&hange")
+        self.button_9 = wx.Button(self.panel_1, wx.ID_CANCEL, "")
+
+        self.__set_properties()
+        self.__do_layout()
+
+        self.Bind(wx.EVT_BUTTON, self.changedir, self.button_5)
+        self.Bind(wx.EVT_BUTTON, self.cancel, self.button_9)
+        # end wxGlade
 
     def __set_properties(self):
-        # content of this block not found: did you rename this class?
-        pass
+        # begin wxGlade: ChangeDirPanel.__set_properties
+        self.SetTitle("Change Directory")
+        self.text_ctrl_16.SetMinSize((400, 27))
+        # end wxGlade
 
     def __do_layout(self):
-        # content of this block not found: did you rename this class?
-        pass
+        # begin wxGlade: ChangeDirPanel.__do_layout
+        sizer_17 = wx.BoxSizer(wx.VERTICAL)
+        sizer_18 = wx.BoxSizer(wx.VERTICAL)
+        sizer_19 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_18.Add(self.text_ctrl_16, 0, wx.ADJUST_MINSIZE, 0)
+        sizer_19.Add(self.button_5, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
+        sizer_19.Add(self.button_9, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
+        sizer_18.Add(sizer_19, 0, wx.EXPAND, 0)
+        self.panel_1.SetSizer(sizer_18)
+        sizer_17.Add(self.panel_1, 1, wx.EXPAND, 0)
+        self.SetSizer(sizer_17)
+        sizer_17.Fit(self)
+        self.Layout()
+        # end wxGlade
 
-    def dir_change(self, event): # wxGlade: ChangeDirPanel.<event_handler>
-        myframe = MyFrame(None, -1, "")
-	myframe.filedir = self.text_ctrl_12.GetValue()
-	myframe.file_show_dir()
-	self.Destroy()
+    def changedir(self, event): # wxGlade: ChangeDirPanel.<event_handler>
+	myframe = MyFrame(None, -1, "")
+	myrame.SetStatusText("Hello")
+        MyFrame.filedir = self.text_ctrl_16.GetValue()
+	MyFrame.file_show_dir()
+	print MyFrame.filedir
+
+    def cancel(self, event): # wxGlade: ChangeDirPanel.<event_handler>
+        self.Close()
 
 # end of class ChangeDirPanel
 
@@ -350,6 +380,7 @@ class MyFrame(wx.Frame):
         self.menubar = wx.MenuBar()
         wxglade_tmp_menu = wx.Menu()
         wxglade_tmp_menu.Append(5, "Options", "", wx.ITEM_NORMAL)
+        wxglade_tmp_menu.Append(11, "Open FIle", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.AppendSeparator()
         wxglade_tmp_menu.Append(2, "Quit", "", wx.ITEM_NORMAL)
         self.menubar.Append(wxglade_tmp_menu, "DCM")
@@ -399,6 +430,7 @@ class MyFrame(wx.Frame):
         self.__do_layout()
 
         self.Bind(wx.EVT_MENU, self.options, id=5)
+        self.Bind(wx.EVT_MENU, self.open_file, id=11)
         self.Bind(wx.EVT_MENU, self.quit, id=2)
         self.Bind(wx.EVT_MENU, self.change_dir, id=1)
         self.Bind(wx.EVT_MENU, self.start_mysql, id=3)
@@ -575,14 +607,12 @@ class MyFrame(wx.Frame):
 	f.close()
 
     def open_file(self, event): # wxGlade: MyFrame.<event_handler>
-        self.SetStatusText("This Function is not yet implemented.")
+	self.SetStatusText("this currently serves an other purpose...")
+	self.sctframe = ShortCut(MyFrame(self), -1, "")
+	self.sctframe.Show()
 
     def quit(self, event): # wxGlade: MyFrame.<event_handler>
-	try:
-		self.opframe.Destroy()
-	except:
-		pass
-	self.Destroy()
+	self.Close()
 
     def file_show_dir(self):
 	self.list_box_1.Set([])
@@ -753,9 +783,28 @@ class MyFrame(wx.Frame):
 		else:
 			try:
 				num = len(fl.strip().split(".")) - 1
-				flext = fl.strip().split(".")[num]
+				if num != 0:
+					flext = fl.strip().split(".")[num]
+				else:
+					fl = self.filedir + "/" + self.label_2.GetLabel()
+				        f = open(fl, 'r')
+					txt = ""
+					for line in f.readlines():
+						if line.startswith("#!/"):
+							flext = line
+					f.close()
+					print flext
+					try:
+						num = len(fl.strip().split("/")) - 1
+						flext = flext.split().strip("/")[num]
+					except:
+						try:
+							flext = flext.strip().split(" ")[1]
+						except:
+							self.SetStatusText("This file does not have an extension and does not contain a header")
+							goon = False
+					
 			except:
-				self.SetStatusText("This file does not have an extension, we don't support this yet")
 				goon = False
 		if(goon):
 			try:
@@ -885,8 +934,8 @@ class MyFrame(wx.Frame):
 			self.log("error with deditor save fm")
 
     def change_dir(self, event): # wxGlade: MyFrame.<event_handler>
-        changedirframe = ChangeDirPanel(None, -1, "")
-	changedirframe.Show()
+        self.chgedirframe = ChangeDirPanel(MyFrame(self), -1, "")
+	self.chgedirframe.Show()
 
     def secded(self, event): # wxGlade: MyFrame.<event_handler>
         self.SetStatusText("Not implemented yet")

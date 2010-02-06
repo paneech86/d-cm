@@ -7,5 +7,6 @@ html|gedit
 css|gedit
 php|gedit
 py|xterm -hold -e
+python|xterm -hold -e
 mp4|vlc
 mp3|vlc
