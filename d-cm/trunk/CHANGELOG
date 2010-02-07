@@ -1,6 +1,6 @@
 CHANGELOG
 
-v.0.02
+v.0.03
 - better DOPEN integration
  -> dcm
  -> extlib.ded
@@ -23,3 +23,10 @@ v.0.02
  -> dcm
 -Improved extlib function
  -> dcm
+-Added support for files with spaces in File Manager
+ -> dcm
+-Added .avi support with vlc
+ -> extlib.ded
+-Changed commandline utils to always show the usage
+ -> dcmd
+ -> dcmsvn

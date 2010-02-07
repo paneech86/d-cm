@@ -10,7 +10,8 @@ Contents:
 ->deditor
 ->ftp
 ->dcmd
-->derminal
+->dcmsvn
+->Future projects
 
 Installation
 
@@ -28,6 +29,7 @@ Directory Tree
 ->README	this file
 ->config.ded	the configuration file
 ->dcmd		a command line file (**)
+->dcmsvn	a command line file utility for svn actions
 ->ftp.ded	a file for handling ftp (***)
 
 (*)	for example: .txt gives gedit  .mp3 gives vlc   .py gives xterm -hold -e
@@ -39,9 +41,9 @@ Running
 I suppose dcm is located in your home directory.
 
 -Terminal:
-	/home/username/DCM/dcm &	(the & sign is optional)
+	/home/username/d-cm/dcm &	(the & sign is optional)
 -Nautilus:
-	- goto /home/username/DCM
+	- goto /home/username/d-cm
 	- doubleclick on dcm
 	- choose run
 
@@ -70,5 +72,16 @@ Features
 	dcmd -f		ftp default on/off
 	dcmd -v		DCM version
 	dcmd -u		Update/Upgrade DCM with curl + tar
--Derminal
-	This will be a futur project to integrate a terminal system in DCM
+	dcmd -x		Update/Upgrade the extlib package
+-Dcmsvn
+	This program is used for contributors that use svn.
+	(it will not be included in a standard release, but you can download it in the downloads tab or with svn)
+	Commands:
+	dcmsvn -s	is the equal of svn status
+	dcmsvn -c	is the equal of svn commit, but asks for the commit information instead of using the "-m 'commit info'" command
+	dcmsvn -S	Synchronizes with the project repository on google code.  Asks for username before synching.
+	Handy:
+	After doing dcmsvn -s, you can do dcmsvn -cS to commit changes and synchronize in one command =)
+-Future Projects:
+	Derminal:	terminal integrated in d-cm
+	extlib Manager:	A GUI to choose your extlib opening files
