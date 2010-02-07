@@ -1,7 +1,11 @@
 #!/bin/bash
+username=""
 sync () {
-	echo "user name?"
-	read username
+	if [[ username -eq "" ]]
+	then
+		echo "user name?"
+		read username
+	fi
 	svnsync synchronize https://d-cm.googlecode.com/svn --sync-username $username
 }
 status () {
@@ -12,12 +16,13 @@ commit () {
 	read commit
 	svn commit -m "$commit"
 }
-while getopts csS opt
+while getopts csSu: opt
 do
     case "$opt" in
       c)  commit ;;
       S)  sync ;;
       s)  status ;;
+      u)  username="$OPTARG" ;;
       \?) echo >&2 \
 	  "usage: $0 [-c] [-s] [-S]"
 	  exit 1;;
