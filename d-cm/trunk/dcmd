@@ -21,4 +21,7 @@ do
 	  exit 1;;
     esac
 done
+echo "usage: $0 [-e] [-s]"
+echo "-e: Get the number of lines in extlib"
+echo "-s: Status"
 shift `expr $OPTIND - 1`

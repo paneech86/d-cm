@@ -20,10 +20,11 @@ do
       s)  status ;;
       \?) echo >&2 \
 	  "usage: $0 [-c] [-s] [-S]"
-	  "-c: commit"
-	  "-s: status"
-	  "-S: synchronize"
 	  exit 1;;
     esac
 done
+echo "usage: $0 [-c] [-s] [-S]"
+echo "-c: commit"
+echo "-s: status"
+echo "-S: synchronize"
 shift `expr $OPTIND - 1`

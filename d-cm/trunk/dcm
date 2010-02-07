@@ -53,10 +53,9 @@ class ChangeDirPanel(wx.Frame):
 
     def changedir(self, event): # wxGlade: ChangeDirPanel.<event_handler>
 	myframe = MyFrame(None, -1, "")
-	myrame.SetStatusText("Hello")
-        MyFrame.filedir = self.text_ctrl_16.GetValue()
-	MyFrame.file_show_dir()
-	print MyFrame.filedir
+	myframe.SetStatusText("Hello")
+        myframe.filedir = self.text_ctrl_16.GetValue()
+	myframe.file_show_dir()
 
     def cancel(self, event): # wxGlade: ChangeDirPanel.<event_handler>
         self.Close()
@@ -617,7 +616,7 @@ class MyFrame(wx.Frame):
     def file_show_dir(self):
 	self.list_box_1.Set([])
 	self.list_box_1.Append("[Back]")
-	listdir = os.listdir (self.filedir)
+	listdir = os.listdir(self.filedir)
 	listdir.sort()
 	for i in listdir:
 		if(os.path.isdir(self.filedir + "/" + i)):
@@ -629,11 +628,13 @@ class MyFrame(wx.Frame):
 
     def listbox(self, event): # wxGlade: MyFrame.<event_handler>
         if event.GetString().startswith("[F]"):
-		self.filedir += "/" + event.GetString().strip().split(" ")[1]
+		ev=event.GetString().strip().split(" ")[1::]
+		ev=' '.join(ev)
+		self.filedir += "/" + ev
 		self.file_show_dir()
 	elif "[Back]" in event.GetString():
 		if(self.filedir.rpartition("/")[0] == ''):
-			self.filedir = '/'
+			self.filedir = "/"
 		else:
 			self.filedir = self.filedir.rpartition("/")[0]
 		self.file_show_dir()
@@ -772,7 +773,7 @@ class MyFrame(wx.Frame):
 
     def dopen(self, event): # wxGlade: MyFrame.<event_handler>
         dopn = self.extlib(self.label_2.GetLabel(),"NO")
-	os.system(dopn + " " + self.filedir + "/" + self.label_2.GetLabel() + " &")
+	os.system(dopn + " \"" + self.filedir + "/" + self.label_2.GetLabel() + "\" &")
 
     def extlib(self,fl,at):
 	if(self.dopen):
@@ -798,11 +799,11 @@ class MyFrame(wx.Frame):
 						num = len(fl.strip().split("/")) - 1
 						flext = flext.split().strip("/")[num]
 					except:
-						try:
-							flext = flext.strip().split(" ")[1]
-						except:
-							self.SetStatusText("This file does not have an extension and does not contain a header")
-							goon = False
+						#try:
+						#	flext = flext.strip().split(" ")[1]
+						#except:
+						#	self.SetStatusText("This file does not have an extension and does not contain a header")
+						goon = False
 					
 			except:
 				goon = False
