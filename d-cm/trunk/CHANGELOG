@@ -3,7 +3,7 @@ CHANGELOG
 v.0.03
 - better DOPEN integration
  -> dcm
- -> extlib.ded
+ -> DOPEN/extlib.ded
 - Add doubleclick integration in mysql tab
  -> dcm
 - Options/Configuration cleaned up
@@ -26,7 +26,9 @@ v.0.03
 -Added support for files with spaces in File Manager
  -> dcm
 -Added .avi support with vlc
- -> extlib.ded
+ -> DOPEN/extlib.ded
 -Changed commandline utils to always show the usage
  -> dcmd
  -> dcmsvn
+-Added an extlib manager
+ -> DOPEN/extlibman

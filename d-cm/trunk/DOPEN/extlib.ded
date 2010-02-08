@@ -6,9 +6,10 @@ cpp|gedit
 html|gedit
 css|gedit
 php|gedit
-py|xterm -hold -e
+py|gedit
 python|xterm -hold -e
 mp4|vlc
 avi|vlc
 mp3|vlc
+ram|vlc
 bash|xterm -hold -e
