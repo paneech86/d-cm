@@ -379,6 +379,7 @@ class MyFrame(wx.Frame):
         self.menubar = wx.MenuBar()
         wxglade_tmp_menu = wx.Menu()
         wxglade_tmp_menu.Append(5, "Options", "", wx.ITEM_NORMAL)
+        wxglade_tmp_menu.Append(12, "Extlib Manager", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.Append(11, "Open FIle", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.AppendSeparator()
         wxglade_tmp_menu.Append(2, "Quit", "", wx.ITEM_NORMAL)
@@ -429,6 +430,7 @@ class MyFrame(wx.Frame):
         self.__do_layout()
 
         self.Bind(wx.EVT_MENU, self.options, id=5)
+        self.Bind(wx.EVT_MENU, self.extlibman, id=12)
         self.Bind(wx.EVT_MENU, self.open_file, id=11)
         self.Bind(wx.EVT_MENU, self.quit, id=2)
         self.Bind(wx.EVT_MENU, self.change_dir, id=1)
@@ -974,6 +976,9 @@ class MyFrame(wx.Frame):
 
     def init_chmod(self, event): # wxGlade: MyFrame.<event_handler>
         self.chmod_init()
+
+    def extlibman(self, event): # wxGlade: MyFrame.<event_handler>
+        os.system(self.dcmdir + "/DOPEN/extlibman &")
 
 # end of class MyFrame
 
