@@ -170,6 +170,7 @@ class OptionFrame(wx.Frame):
         self.sizer_15_staticbox = wx.StaticBox(self.notebook_2_pane_5, -1, "FTP")
         self.sizer_7_staticbox = wx.StaticBox(self.notebook_2_pane_1, -1, "Startup")
         self.combo_box_1 = wx.ComboBox(self.notebook_2_pane_1, -1, choices=["File Manager", "MySql", "Deditor", "FTP"], style=wx.CB_DROPDOWN)
+        self.button_12 = wx.Button(self.notebook_2_pane_1, -1, "Apply")
         self.label_12 = wx.StaticText(self.notebook_2_pane_2, -1, "The Default Folder:", style=wx.ALIGN_CENTRE)
         self.text_ctrl_7 = wx.TextCtrl(self.notebook_2_pane_2, -1, "")
         self.button_8 = wx.Button(self.notebook_2_pane_2, -1, "Apply")
@@ -196,6 +197,7 @@ class OptionFrame(wx.Frame):
         self.__set_properties()
         self.__do_layout()
 
+        self.Bind(wx.EVT_BUTTON, self.startup, self.button_12)
         self.Bind(wx.EVT_BUTTON, self.fdeffolder, self.button_8)
         self.Bind(wx.EVT_CHECKBOX, self.mysql_default, self.checkbox_10)
         self.Bind(wx.EVT_BUTTON, self.mysql_database, self.button_6)
@@ -260,6 +262,7 @@ class OptionFrame(wx.Frame):
         sizer_9 = wx.GridSizer(1, 2, 0, 0)
         sizer_7 = wx.StaticBoxSizer(self.sizer_7_staticbox, wx.VERTICAL)
         sizer_7.Add(self.combo_box_1, 0, wx.EXPAND|wx.ADJUST_MINSIZE, 0)
+        sizer_7.Add(self.button_12, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
         self.notebook_2_pane_1.SetSizer(sizer_7)
         sizer_9.Add(self.label_12, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
         sizer_9.Add(self.text_ctrl_7, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
@@ -315,11 +318,11 @@ class OptionFrame(wx.Frame):
 	f.close()
 
     def startup(self, event): # wxGlade: OptionFrame.<event_handler>
-        if(self.combo_box_1.GetValue() == 0):
+        if(self.combo_box_1.GetValue() == "File Manager"):
 		selection = "FM"
-	elif(self.combo_box_1.GetValue() == 1):
+	elif(self.combo_box_1.GetValue() == "MySql"):
 		selection = "MySQL"
-	elif(self.combo_box_1.GetValue() == 2):
+	elif(self.combo_box_1.GetValue() == "Deditor"):
 		selection = "Deditor"
 	else:
 		selection = "FTP"
@@ -574,7 +577,7 @@ class MyFrame(wx.Frame):
 		self.notebook_1.SetSelection(1)
 	elif(value == "Deditor"):
 		self.notebook_1.SetSelection(2)
-	elif(value == "Ftp"):
+	elif(value == "FTP"):
 		self.notebook_1.SetSelection(3)
 	else:
 		self.notebook_1.SetSelection(0)

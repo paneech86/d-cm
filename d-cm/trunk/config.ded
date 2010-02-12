@@ -3,7 +3,7 @@
 !Do Not change this file!
 #General#
 @IMPORT:DOPEN|YES
-GSTARTUP|FTP
+GSTARTUP|FM
 #MySQL#
 MSTART|NO
 MSERVER|localhost
