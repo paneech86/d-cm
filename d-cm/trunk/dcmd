@@ -3,6 +3,31 @@ extlib_count () {
 	loc=`dirname $0`/DOPEN/extlib.ded
 	echo `wc -l $loc`
 }
+extupdate () {
+	crl=`curl http://d-cm.googlecode.com/files/extlib.ded | grep @DCM:VERSION`
+	version=${crl#*|}
+	locl="./DOPEN/extlib.ded"
+	for name in $(<$locl)
+	do
+		e=$e"\n"$name
+	done
+	for line in `echo -e $e`
+	do
+		if [[ $line == @DCM:VERSION* ]]
+		then
+			local=${line#*|}
+		fi
+	done
+	if [[ $version > $local ]]
+	then
+		echo "notuptodate"
+	    echo $version
+	    echo $local
+	else
+		echo "uptodate"
+	fi
+		
+}
 status () {
 	if [[ `ps ax | grep -v grep | grep dcm$` ]]
 	then
@@ -11,17 +36,19 @@ status () {
 		echo "dcm is not running"
 	fi
 }
-while getopts es opt
+while getopts esu opt
 do
     case "$opt" in
       e)  extlib_count ;;
       s)  status ;;
+      u)  extupdate ;;
       \?) echo >&2 \
-	  "usage: $0 [-s]"
+	  "usage: $0 [-e] [-s] [-u]"
 	  exit 1;;
     esac
 done
 echo "usage: $0 [-e] [-s]"
 echo "-e: Get the number of lines in extlib"
 echo "-s: Status"
+echo "-u: update extlib"
 shift `expr $OPTIND - 1`

@@ -25,7 +25,7 @@ class ExtMan(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.save, self.button_1)
         # end wxGlade
 
-	self.initialize()
+        self.initialize()
 
     def __set_properties(self):
         # begin wxGlade: ExtMan.__set_properties
@@ -50,56 +50,56 @@ class ExtMan(wx.Frame):
         # end wxGlade
 
     def extlib_set(self,name,new):
-	last = self.extlib_get(name)
-	last = name + "|" + last
-	new = name + "|" + new
-	try:
-		s = open(self.extlib, 'r').read()
-	except:
-		print "error: could not open" + self.extlib + " error generated in config_set"
-	s = s.replace(last, new)
-	f = open(self.extlib, 'w')
-	f.write(s)
-	f.close()
+        last = self.extlib_get(name)
+        last = name + "|" + last
+        new = name + "|" + new
+        try:
+            s = open(self.extlib, 'r').read()
+        except:
+            print "error: could not open" + self.extlib + " error generated in config_set"
+        s = s.replace(last, new)
+        f = open(self.extlib, 'w')
+        f.write(s)
+        f.close()
 
     def extlib_get(self,name):
-	self.extlib = self.elmdir + "extlib.ded"
-	try:
-		f = open(self.extlib, 'r')
-	except:
-		print "error: could not open" + self.extlib + " error generated in config_get"
-	for line in f:
-		if name.strip() == line.strip().split("|")[0]:
-			 strip = line.strip().split("|")[1]
-	return strip
-	f.close()
+        self.extlib = self.elmdir + "extlib.ded"
+        try:
+            f = open(self.extlib, 'r')
+        except:
+            print "error: could not open" + self.extlib + " error generated in config_get"
+        for line in f:
+            if name.strip() == line.strip().split("|")[0]:
+                 strip = line.strip().split("|")[1]
+        return strip
+        f.close()
 
     def initialize(self):
-	self.elmdir = os.path.dirname(__file__) + "/"
-	self.extlib = self.elmdir + "extlib.ded"
-	try:
-		f = open(self.extlib, 'r')
-		self.subjects=[]
-		self.openers=[]
-	except:
-		print "error"
-	for line in f:
-		if line.startswith("@"):
-			pass
-		else:
-			self.subjects.append(line.strip().split("|")[0])
-			self.openers.append(line.strip().split("|")[1])
-	f.close()
-	for i in self.subjects:
-		self.combo_box_1.Append(i)
-	self.text_ctrl_1.SetValue(self.openers[self.subjects.index(self.subjects[0])])
+        self.elmdir = os.path.dirname(__file__) + "/"
+        self.extlib = self.elmdir + "extlib.ded"
+        try:
+            f = open(self.extlib, 'r')
+            self.subjects=[]
+            self.openers=[]
+        except:
+            print "error"
+        for line in f:
+            if line.startswith("@"):
+                pass
+            else:
+                self.subjects.append(line.strip().split("|")[0])
+                self.openers.append(line.strip().split("|")[1])
+        f.close()
+        for i in self.subjects:
+            self.combo_box_1.Append(i)
+        self.text_ctrl_1.SetValue(self.openers[self.subjects.index(self.subjects[0])])
 
     def change(self, event): # wxGlade: ExtMan.<event_handler>
         self.text_ctrl_1.SetValue(self.openers[self.subjects.index(event.GetString())])
 
     def save(self, event): # wxGlade: ExtMan.<event_handler>
         if self.text_ctrl_1.GetValue() != "":
-		self.extlib_set(self.combo_box_1.GetValue(),self.text_ctrl_1.GetValue())
+            self.extlib_set(self.combo_box_1.GetValue(),self.text_ctrl_1.GetValue())
 
 # end of class ExtMan
 

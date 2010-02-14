@@ -5,9 +5,9 @@
 import wx, os, datetime, stat
 from ftplib import FTP
 try:
-	import MySQLdb
+    import MySQLdb
 except:
-	print "Attention: If you want to use MySQL you will have to install the MySQLdb module view Read-me for more information"
+    print "Attention: If you want to use MySQL you will have to install the MySQLdb module view Read-me for more information"
 
 # begin wxGlade: extracode
 # end wxGlade
@@ -52,10 +52,10 @@ class ChangeDirPanel(wx.Frame):
         # end wxGlade
 
     def changedir(self, event): # wxGlade: ChangeDirPanel.<event_handler>
-	myframe = MyFrame(None, -1, "")
-	myframe.SetStatusText("Hello")
+        myframe = MyFrame(None, -1, "")
+        myframe.SetStatusText("Hello")
         myframe.filedir = self.text_ctrl_16.GetValue()
-	myframe.file_show_dir()
+        myframe.file_show_dir
 
     def cancel(self, event): # wxGlade: ChangeDirPanel.<event_handler>
         self.Close()
@@ -125,34 +125,34 @@ class SendDialog(wx.Dialog):
         # end wxGlade
 
     def file(self,dcmdir,dir,file):
-	self.dcmdir = dcmdir
-	self.curdir = dir
-	self.lastfile = file
+        self.dcmdir = dcmdir
+        self.curdir = dir
+        self.lastfile = file
 
     def send_ftp(self, event): # wxGlade: SendDialog.<event_handler>
         if(self.text_ctrl_10.GetValue()):
-		myframe = MyFrame(None, -1, "")
-		lastdir = self.text_ctrl_10.GetValue()
-		if(lastdir.startswith("/")):
-			lastdir = lastdir.partition("/")[2]
-		optionframe = OptionFrame(None, -1, "")
-		optionframe.config_set("SLASTDIR",lastdir)
-		optionframe.config_set("SLASTFILE",self.lastfile)
-		ftpp = self.dcmdir + 'ftp.ded'
-		fl = self.curdir + "/" + self.lastfile
-		try:
-			f = open(fl, 'r')
-			label = ""
-			for line in f:
-				label += line
-			f.close()
-			g = open(ftpp,'w')
-			g.write(label)
-			g.close()
-		except:
-			myframe.log("FTP:SEND:error")
-		myframe.ftp_upload()
-		self.Destroy()
+            myframe = MyFrame(None, -1, "")
+            lastdir = self.text_ctrl_10.GetValue()
+            if(lastdir.startswith("/")):
+                lastdir = lastdir.partition("/")[2]
+            optionframe = OptionFrame(None, -1, "")
+            optionframe.config_set("SLASTDIR",lastdir)
+            optionframe.config_set("SLASTFILE",self.lastfile)
+            ftpp = self.dcmdir + 'ftp.ded'
+            fl = self.curdir + "/" + self.lastfile
+            try:
+                f = open(fl, 'r')
+                label = ""
+                for line in f:
+                    label += line
+                f.close()
+                g = open(ftpp,'w')
+                g.write(label)
+                g.close()
+            except:
+                myframe.log("FTP:SEND:error")
+            myframe.ftp_upload()
+            self.Destroy()
 
 # end of class SendDialog
 
@@ -204,35 +204,35 @@ class OptionFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.ftp_config, self.button_13)
         # end wxGlade
 
-	myframe = MyFrame(None, -1, "")
-	value = myframe.config_get("GSTARTUP")
-	if(value == "MySQL"):
-		self.combo_box_1.SetValue("MySql")
-	elif(value == "Deditor"):
-		self.combo_box_1.SetValue("Deditor")
-	elif(value == "FTP"):
-		self.combo_box_1.SetValue("FTP")
-	else:
-		self.combo_box_1.SetValue("File Manager")
-	value = myframe.config_get("MSTART")
-	if(value == "YES"):
-		self.checkbox_10.SetValue(1)
-	else:
-		self.checkbox_10.SetValue(0)
-	value = myframe.config_get("MSERVER")
-	self.text_ctrl_3.SetValue(value)
-	value = myframe.config_get("MUSER")
-	self.text_ctrl_4.SetValue(value)
-	value = myframe.config_get("MPASS")
-	self.text_ctrl_5.SetValue(value)
-	value = myframe.config_get("MDATA")
-	self.text_ctrl_6.SetValue(value)
-	value = myframe.config_get("SSERVER")
-	self.text_ctrl_13.SetValue(value)
-	value = myframe.config_get("SUSER")
-	self.text_ctrl_14.SetValue(value)
-	value = myframe.config_get("SPASS")
-	self.text_ctrl_15.SetValue(value)
+        myframe = MyFrame(None, -1, "")
+        value = myframe.config_get("GSTARTUP")
+        if(value == "MySQL"):
+            self.combo_box_1.SetValue("MySql")
+        elif(value == "Deditor"):
+            self.combo_box_1.SetValue("Deditor")
+        elif(value == "FTP"):
+            self.combo_box_1.SetValue("FTP")
+        else:
+            self.combo_box_1.SetValue("File Manager")
+        value = myframe.config_get("MSTART")
+        if(value == "YES"):
+            self.checkbox_10.SetValue(1)
+        else:
+            self.checkbox_10.SetValue(0)
+        value = myframe.config_get("MSERVER")
+        self.text_ctrl_3.SetValue(value)
+        value = myframe.config_get("MUSER")
+        self.text_ctrl_4.SetValue(value)
+        value = myframe.config_get("MPASS")
+        self.text_ctrl_5.SetValue(value)
+        value = myframe.config_get("MDATA")
+        self.text_ctrl_6.SetValue(value)
+        value = myframe.config_get("SSERVER")
+        self.text_ctrl_13.SetValue(value)
+        value = myframe.config_get("SUSER")
+        self.text_ctrl_14.SetValue(value)
+        value = myframe.config_get("SPASS")
+        self.text_ctrl_15.SetValue(value)
 
     def __set_properties(self):
         # begin wxGlade: OptionFrame.__set_properties
@@ -303,63 +303,63 @@ class OptionFrame(wx.Frame):
         # end wxGlade
 
     def config_set(self,name,new):
-	myframe = MyFrame(None, -1, "")
-	self.config = myframe.dcmdir + "config.ded"
-	last = myframe.config_get(name)
-	last = name + "|" + last
-	new = name + "|" + new
-	try:
-		s = open(self.config, 'r').read()
-	except:
-		myframe.log("error: could not open" + self.config + " error generated in config_set")
-	s = s.replace(last, new)
-	f = open(self.config, 'w')
-	f.write(s)
-	f.close()
+        myframe = MyFrame(None, -1, "")
+        self.config = myframe.dcmdir + "config.ded"
+        last = myframe.config_get(name)
+        last = name + "|" + last
+        new = name + "|" + new
+        try:
+            s = open(self.config, 'r').read()
+        except:
+            myframe.log("error: could not open" + self.config + " error generated in config_set")
+        s = s.replace(last, new)
+        f = open(self.config, 'w')
+        f.write(s)
+        f.close()
 
     def startup(self, event): # wxGlade: OptionFrame.<event_handler>
         if(self.combo_box_1.GetValue() == "File Manager"):
-		selection = "FM"
-	elif(self.combo_box_1.GetValue() == "MySql"):
-		selection = "MySQL"
-	elif(self.combo_box_1.GetValue() == "Deditor"):
-		selection = "Deditor"
-	else:
-		selection = "FTP"
-	self.config_set("GSTARTUP",selection)
+            selection = "FM"
+        elif(self.combo_box_1.GetValue() == "MySql"):
+            selection = "MySQL"
+        elif(self.combo_box_1.GetValue() == "Deditor"):
+            selection = "Deditor"
+        else:
+            selection = "FTP"
+        self.config_set("GSTARTUP",selection)
 
     def mysql_default(self, event): # wxGlade: OptionFrame.<event_handler>
-	myframe = MyFrame(None, -1, "")
-	server = myframe.config_get("MSERVER")
-	muser = myframe.config_get("MUSER")
-	mpass = myframe.config_get("MPASS")
-	mdata = myframe.config_get("MDATA")
-	if((server != 'None') and (muser != 'None') and (mpass != 'None') and (mdata != 'None')):
-	        if(self.checkbox_10.GetValue() == 0):
-			selection = "NO"
-		else:
-			selection = "YES"
-		self.config_set("MSTART",selection)
-	else:
-		self.checkbox_10.SetValue(0)
-		myframe.SetStatusText("Please fill in a servername/username/password or databasename")
+        myframe = MyFrame(None, -1, "")
+        server = myframe.config_get("MSERVER")
+        muser = myframe.config_get("MUSER")
+        mpass = myframe.config_get("MPASS")
+        mdata = myframe.config_get("MDATA")
+        if((server != 'None') and (muser != 'None') and (mpass != 'None') and (mdata != 'None')):
+            if(self.checkbox_10.GetValue() == 0):
+                selection = "NO"
+            else:
+                selection = "YES"
+            self.config_set("MSTART",selection)
+        else:
+            self.checkbox_10.SetValue(0)
+            myframe.SetStatusText("Please fill in a servername/username/password or databasename")
 
     def mysql_database(self, event): # wxGlade: OptionFrame.<event_handler>
         if(self.text_ctrl_3.GetValue() and self.text_ctrl_4.GetValue() and self.text_ctrl_5.GetValue() and self.text_ctrl_6.GetValue()):
-		self.config_set("MSERVER",self.text_ctrl_3.GetValue())
-		self.config_set("MUSER",self.text_ctrl_4.GetValue())
-		self.config_set("MPASS",self.text_ctrl_5.GetValue())
-		self.config_set("MDATA",self.text_ctrl_6.GetValue())
+            self.config_set("MSERVER",self.text_ctrl_3.GetValue())
+            self.config_set("MUSER",self.text_ctrl_4.GetValue())
+            self.config_set("MPASS",self.text_ctrl_5.GetValue())
+            self.config_set("MDATA",self.text_ctrl_6.GetValue())
 
     def fdeffolder(self, event): # wxGlade: OptionFrame.<event_handler>
-	if(self.text_ctrl_7.GetValue()):
-		self.config_set("FDEF",self.text_ctrl_7.GetValue())
+        if(self.text_ctrl_7.GetValue()):
+            self.config_set("FDEF",self.text_ctrl_7.GetValue())
 
     def ftp_config(self, event): # wxGlade: OptionFrame.<event_handler>
         if(self.text_ctrl_13.GetValue() and self.text_ctrl_14.GetValue() and self.text_ctrl_15.GetValue()):
-		self.config_set("SSERVER",self.text_ctrl_13.GetValue())
-		self.config_set("SUSER",self.text_ctrl_14.GetValue())
-		self.config_set("SPASS",self.text_ctrl_15.GetValue())
+            self.config_set("SSERVER",self.text_ctrl_13.GetValue())
+            self.config_set("SUSER",self.text_ctrl_14.GetValue())
+            self.config_set("SPASS",self.text_ctrl_15.GetValue())
 
 # end of class OptionFrame
 
@@ -383,6 +383,7 @@ class MyFrame(wx.Frame):
         wxglade_tmp_menu = wx.Menu()
         wxglade_tmp_menu.Append(5, "Options", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.Append(12, "Extlib Manager", "", wx.ITEM_NORMAL)
+        wxglade_tmp_menu.Append(13, "Update Extlib", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.Append(11, "Open FIle", "", wx.ITEM_NORMAL)
         wxglade_tmp_menu.AppendSeparator()
         wxglade_tmp_menu.Append(2, "Quit", "", wx.ITEM_NORMAL)
@@ -434,6 +435,7 @@ class MyFrame(wx.Frame):
 
         self.Bind(wx.EVT_MENU, self.options, id=5)
         self.Bind(wx.EVT_MENU, self.extlibman, id=12)
+        self.Bind(wx.EVT_MENU, self.extupdate, id=13)
         self.Bind(wx.EVT_MENU, self.open_file, id=11)
         self.Bind(wx.EVT_MENU, self.quit, id=2)
         self.Bind(wx.EVT_MENU, self.change_dir, id=1)
@@ -455,7 +457,7 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.fdown, self.button_10)
         # end wxGlade
 
-	self.initialize()
+        self.initialize()
 
     def __set_properties(self):
         # begin wxGlade: MyFrame.__set_properties
@@ -555,140 +557,140 @@ class MyFrame(wx.Frame):
         # end wxGlade
 
     def initialize(self):
-	#DCM FILES AND DIRECTORIES CHECK#
-	self.dcmdir = os.path.dirname(__file__) + "/"
-	if(os.path.exists(self.dcmdir + "dcmlog.ded") != True):
-		print "ATTENTION: LOG FILE MISSING: DCMLOG.DED"
-	if(os.path.exists(self.dcmdir + "config.ded") != True):
-		self.log("ATTENTION: CONFIGURATION FILE MISSING: CONFIG.DED")
-	#Welcome Message
-	self.SetStatusText("Welcome to DCM!")
-	self.log("DCM Started from " + self.dcmdir)
-	self.mysql_status = False
-	#@Dopen
-	value = self.config_get("@IMPORT:DOPEN")
-	if(value == "YES"):
-		self.dopen = True
-	else:
-		self.dopen = False
-	#Notebook Check
-	value = self.config_get("GSTARTUP")
-	if(value == "MySQL"):
-		self.notebook_1.SetSelection(1)
-	elif(value == "Deditor"):
-		self.notebook_1.SetSelection(2)
-	elif(value == "FTP"):
-		self.notebook_1.SetSelection(3)
-	else:
-		self.notebook_1.SetSelection(0)
-	#Mysql Start By default
-	value = self.config_get("MSTART")
-	if(value == "YES"):
-		self.mysql_start()
-	#DEXTLIB Check
-	if(self.dopen):
-		if(self.extlib("@DCM:VERSION","YES") >= self.config_get("@DCM:VERSION")):
-			self.dopenvalid = True
-		else:
-			self.dopenvalid = False
-			self.SetStatusText("ATTENTION: DOPEN IS NOT THE RIGHT VERSION")
-	#DFTP Check
-	value = self.config_get("SSERVER")
-	#FDEF Check
-	self.filedir = self.config_get("FDEF")
-	self.file_show_dir()
+        #DCM FILES AND DIRECTORIES CHECK#
+        self.dcmdir = os.path.dirname(__file__) + "/"
+        if(os.path.exists(self.dcmdir + "dcmlog.ded") != True):
+            print "ATTENTION: LOG FILE MISSING: DCMLOG.DED"
+        if(os.path.exists(self.dcmdir + "config.ded") != True):
+            self.log("ATTENTION: CONFIGURATION FILE MISSING: CONFIG.DED")
+        #Welcome Message
+        self.SetStatusText("Welcome to DCM!")
+        self.log("DCM Started from " + self.dcmdir)
+        self.mysql_status = False
+        #@Dopen
+        value = self.config_get("@IMPORT:DOPEN")
+        if(value == "YES"):
+            self.dopen = True
+        else:
+            self.dopen = False
+        #Notebook Check
+        value = self.config_get("GSTARTUP")
+        if(value == "MySQL"):
+            self.notebook_1.SetSelection(1)
+        elif(value == "Deditor"):
+            self.notebook_1.SetSelection(2)
+        elif(value == "FTP"):
+            self.notebook_1.SetSelection(3)
+        else:
+            self.notebook_1.SetSelection(0)
+        #Mysql Start By default
+        value = self.config_get("MSTART")
+        if(value == "YES"):
+            self.mysql_start()
+        #DEXTLIB Check
+        if(self.dopen):
+            if(self.extlib("@DCM:VERSION","YES") >= self.config_get("@DCM:VERSION")):
+                self.dopenvalid = True
+            else:
+                self.dopenvalid = False
+                self.SetStatusText("ATTENTION: DOPEN IS NOT THE RIGHT VERSION")
+        #DFTP Check
+        value = self.config_get("SSERVER")
+        #FDEF Check
+        self.filedir = self.config_get("FDEF")
+        self.file_show_dir()
 
     def config_get(self,name):
-	self.config = self.dcmdir + "config.ded"
-	try:
-		f = open(self.config, 'r')
-	except:
-		self.log("error: could not open" + self.config + " error generated in config_get")
-	for line in f:
-		if name.strip() == line.strip().split("|")[0]:
-			 strip = line.strip().split("|")[1]
-	return strip
-	f.close()
+        self.config = self.dcmdir + "config.ded"
+        try:
+            f = open(self.config, 'r')
+        except:
+            self.log("error: could not open" + self.config + " error generated in config_get")
+        for line in f:
+            if name.strip() == line.strip().split("|")[0]:
+                 strip = line.strip().split("|")[1]
+        return strip
+        f.close()
 
     def open_file(self, event): # wxGlade: MyFrame.<event_handler>
-	self.SetStatusText("this currently serves an other purpose...")
-	self.sctframe = ShortCut(MyFrame(self), -1, "")
-	self.sctframe.Show()
+        self.SetStatusText("this currently serves an other purpose...")
+        self.sctframe = ShortCut(MyFrame(self), -1, "")
+        self.sctframe.Show()
 
     def quit(self, event): # wxGlade: MyFrame.<event_handler>
-	self.Close()
+        self.Close()
 
     def file_show_dir(self):
-	self.list_box_1.Set([])
-	self.list_box_1.Append("[Back]")
-	listdir = os.listdir(self.filedir)
-	listdir.sort()
-	for i in listdir:
-		if(os.path.isdir(self.filedir + "/" + i)):
-			self.list_box_1.Append("[F] " + i)
-		else:
-			self.list_box_1.Append(i)
-	self.SetStatusText("Directory List Updated")
-	self.log("Directory List Updated")
+        self.list_box_1.Set([])
+        self.list_box_1.Append("[Back]")
+        listdir = os.listdir(self.filedir)
+        listdir.sort()
+        for i in listdir:
+            if(os.path.isdir(self.filedir + "/" + i)):
+                self.list_box_1.Append("[F] " + i)
+            else:
+                self.list_box_1.Append(i)
+        self.SetStatusText("Directory List Updated")
+        self.log("Directory List Updated")
 
     def listbox(self, event): # wxGlade: MyFrame.<event_handler>
         if event.GetString().startswith("[F]"):
-		ev=event.GetString().strip().split(" ")[1::]
-		ev=' '.join(ev)
-		self.filedir += "/" + ev
-		self.file_show_dir()
-	elif "[Back]" in event.GetString():
-		if(self.filedir.rpartition("/")[0] == ''):
-			self.filedir = "/"
-		else:
-			self.filedir = self.filedir.rpartition("/")[0]
-		self.file_show_dir()
-	else:
-		self.abspath = self.filedir + "/" + event.GetString()
-		self.label_2.SetLabel(event.GetString())
-		self.curfile = event.GetString()
-		self.label_16.SetLabel(self.size(self.abspath))
-		self.text_ctrl_1.SetValue(event.GetString())
-		self.chmod_init()
+            ev=event.GetString().strip().split(" ")[1::]
+            ev=' '.join(ev)
+            self.filedir += "/" + ev
+            self.file_show_dir()
+        elif "[Back]" in event.GetString():
+            if(self.filedir.rpartition("/")[0] == ''):
+                self.filedir = "/"
+            else:
+                self.filedir = self.filedir.rpartition("/")[0]
+            self.file_show_dir()
+        else:
+            self.abspath = self.filedir + "/" + event.GetString()
+            self.label_2.SetLabel(event.GetString())
+            self.curfile = event.GetString()
+            self.label_16.SetLabel(self.size(self.abspath))
+            self.text_ctrl_1.SetValue(event.GetString())
+            self.chmod_init()
 
     def size(self, fl):
-	bytes = os.path.getsize(self.abspath)
-	word=['b','kb','mb','gb','tb']
-	wrd=0
-	while bytes > 1000 and wrd <= 4:
-		wrd += 1
-		bytes /= 1000
-	return str(bytes) + " " + str(word[wrd])
+        bytes = os.path.getsize(self.abspath)
+        word=['b','kb','mb','gb','tb']
+        wrd=0
+        while bytes > 1000 and wrd <= 4:
+            wrd += 1
+            bytes /= 1000
+            return str(bytes) + " " + str(word[wrd])
 
     def rename(self, event): # wxGlade: MyFrame.<event_handler>
         if(self.text_ctrl_1.GetValue() != ''):
-		os.rename(self.curfile,self.text_ctrl_1.GetValue())
-		self.label_2.SetLabel(self.text_ctrl_1.GetValue())
-		self.SetStatusText("FM: Renamed " + self.curfile + " to " + self.text_ctrl_1.GetValue())
-		self.log("FM: Renamed " + self.curfile + " to " + self.text_ctrl_1.GetValue())
-		self.curfile = self.text_ctrl_1.GetValue()
-		self.file_show_dir()
-	else:
-		self.SetStatusText("FM: Was not able to rename file")
-		self.log("error: not able to rename file")
+            os.rename(self.curfile,self.text_ctrl_1.GetValue())
+            self.label_2.SetLabel(self.text_ctrl_1.GetValue())
+            self.SetStatusText("FM: Renamed " + self.curfile + " to " + self.text_ctrl_1.GetValue())
+            self.log("FM: Renamed " + self.curfile + " to " + self.text_ctrl_1.GetValue())
+            self.curfile = self.text_ctrl_1.GetValue()
+            self.file_show_dir()
+        else:
+            self.SetStatusText("FM: Was not able to rename file")
+            self.log("error: not able to rename file")
 
     def send(self, event): # wxGlade: MyFrame.<event_handler>
-	if(self.label_2.GetLabel()):
-	        senddialog = SendDialog(None, -1, "")
-		senddialog.file(self.dcmdir,self.filedir,self.label_2.GetLabel())
-		senddialog.Show()
+        if(self.label_2.GetLabel()):
+            senddialog = SendDialog(None, -1, "")
+            senddialog.file(self.dcmdir,self.filedir,self.label_2.GetLabel())
+            senddialog.Show()
 
     def edit(self, event): # wxGlade: MyFrame.<event_handler>
-	fl = self.filedir + "/" + self.label_2.GetLabel()
+        fl = self.filedir + "/" + self.label_2.GetLabel()
         f = open(fl, 'r')
-	txt = ""
-	for line in f.readlines():
-		txt = txt + line
-	f.close()
-	self.notebook_1.SetSelection(2)
-	self.dedfrom = "fm"
-	self.dedfl = fl
-	self.text_ctrl_8.SetValue(txt)
+        txt = ""
+        for line in f.readlines():
+            txt = txt + line
+        f.close()
+        self.notebook_1.SetSelection(2)
+        self.dedfrom = "fm"
+        self.dedfl = fl
+        self.text_ctrl_8.SetValue(txt)
 
     def dcrypt(self, event): # wxGlade: MyFrame.<event_handler>
         self.SetStatusText("This Function is not yet implemented.")
@@ -697,219 +699,218 @@ class MyFrame(wx.Frame):
         self.SetStatusText("This Function is not yet implemented.")
 
     def start_mysql(self, event): # wxGlade: MyFrame.<event_handler>
-	self.mysql_start()
+        self.mysql_start()
 
     def mysql_start(self):
-	localhost = self.config_get("MSERVER")
-	usr = self.config_get("MUSER")
-	password = self.config_get("MPASS")
-	data = self.config_get("MDATA")
-	try:
-	        self.db = MySQLdb.connect(localhost,usr,password,data)
-		self.cursor = self.db.cursor()
-		self.mysql_status = True
-		self.mysql_table()
-		self.log("MySql: Start")
-        	self.SetStatusText("Mysql: Start")
-	except:
-		self.SetStatusText("Mysql: Not able to start")
-		self.log("MySQL: Not able to start")
+        localhost = self.config_get("MSERVER")
+        usr = self.config_get("MUSER")
+        password = self.config_get("MPASS")
+        data = self.config_get("MDATA")
+        try:
+            self.db = MySQLdb.connect(localhost,usr,password,data)
+            self.cursor = self.db.cursor()
+            self.mysql_status = True
+            self.mysql_table()
+            self.log("MySql: Start")
+            self.SetStatusText("Mysql: Start")
+        except:
+            self.SetStatusText("Mysql: Not able to start")
+            self.log("MySQL: Not able to start")
 
     def stop_mysql(self, event): # wxGlade: MyFrame.<event_handler>
         self.mysql_status = False
         self.SetStatusText("Mysql: Stop")
-	self.log("MySql: Stop")
-	self.db.close()
+        self.log("MySql: Stop")
+        self.db.close()
 
     def do_query(self, event): # wxGlade: MyFrame.<event_handler>
-	if(self.mysql_status):
-		self.qry = self.text_ctrl_2.GetValue()
-		try:
-	        	self.cursor.execute(self.qry)
-			self.query = self.cursor.fetchall()
-			label = ""
-			for i in self.query:
-				label += str(i) + "\n"
-			self.text_ctrl_9.SetValue(label)
-		        self.SetStatusText("Mysql: Query: " + self.qry)
-			self.log("Mysql: Query: " + self.qry)
-		except MySQLdb.Error, e:
-		     label = "Error %d:\n%s" % (e.args[0], e.args[1])
-		     self.text_ctrl_9.SetValue(label)
-		     self.log("MySql: Error: " + label)
-		     self.SetStatusText("Mysql: Error: Query")
-	else:
-	        self.SetStatusText("ATTENTION: Mysql not started!")
+        if(self.mysql_status):
+            self.qry = self.text_ctrl_2.GetValue()
+            try:
+                self.cursor.execute(self.qry)
+                self.query = self.cursor.fetchall()
+                label = ""
+                for i in self.query:
+                    label += str(i) + "\n"
+                self.text_ctrl_9.SetValue(label)
+                self.SetStatusText("Mysql: Query: " + self.qry)
+                self.log("Mysql: Query: " + self.qry)
+            except MySQLdb.Error, e:
+             label = "Error %d:\n%s" % (e.args[0], e.args[1])
+             self.text_ctrl_9.SetValue(label)
+             self.log("MySql: Error: " + label)
+             self.SetStatusText("Mysql: Error: Query")
+        else:
+            self.SetStatusText("ATTENTION: Mysql not started!")
 
     def table_query(self, event): # wxGlade: MyFrame.<event_handler>
         if(self.mysql_status):
-		self.qry = "SELECT * FROM " + event.GetString()
-		try:
-	        	self.cursor.execute(self.qry)
-			self.query = self.cursor.fetchall()
-			label = ""
-			for i in self.query:
-				label += str(i) + "\n"
-			self.text_ctrl_9.SetValue(label)
-		        self.SetStatusText("Mysql: Query: " + self.qry)
-			self.log("Mysql: Query: " + self.qry)
-		except MySQLdb.Error, e:
-		     label = "Error %d:\n%s" % (e.args[0], e.args[1])
-		     self.text_ctrl_9.SetValue(label)
-		     self.log("MySql: Error: " + label)
-		     self.SetStatusText("Mysql: Error: Query")
-	else:
-	        self.SetStatusText("ATTENTION: Mysql not started!")
+            self.qry = "SELECT * FROM " + event.GetString()
+            try:
+                self.cursor.execute(self.qry)
+                self.query = self.cursor.fetchall()
+                label = ""
+                for i in self.query:
+                    label += str(i) + "\n"
+                self.text_ctrl_9.SetValue(label)
+                self.SetStatusText("Mysql: Query: " + self.qry)
+                self.log("Mysql: Query: " + self.qry)
+            except MySQLdb.Error, e:
+                label = "Error %d:\n%s" % (e.args[0], e.args[1])
+                self.text_ctrl_9.SetValue(label)
+                self.log("MySql: Error: " + label)
+                self.SetStatusText("Mysql: Error: Query")
+        else:
+            self.SetStatusText("ATTENTION: Mysql not started!")
 
     def mysql_table(self):
-	self.list_box_3.Set([])
-	try:
-	        self.cursor.execute("SHOW TABLES;")
-		self.query = self.cursor.fetchall()
-	except:
-		self.log("error")
-	for i in self.query:
-		i = str(i).strip().split("'")[1]
-		self.list_box_3.Append(str(i))
+        self.list_box_3.Set([])
+        try:
+            self.cursor.execute("SHOW TABLES;")
+            self.query = self.cursor.fetchall()
+        except:
+            self.log("error")
+        for i in self.query:
+            i = str(i).strip().split("'")[1]
+            self.list_box_3.Append(str(i))
 
     def options(self, event): # wxGlade: MyFrame.<event_handler>
-	self.opframe = OptionFrame(MyFrame(self), -1, "")
+        self.opframe = OptionFrame(MyFrame(self), -1, "")
         self.opframe.Show()
 
     def dopen(self, event): # wxGlade: MyFrame.<event_handler>
         dopn = self.extlib(self.label_2.GetLabel(),"NO")
-	os.system(dopn + " \"" + self.filedir + "/" + self.label_2.GetLabel() + "\" &")
+        os.system(dopn + " \"" + self.filedir + "/" + self.label_2.GetLabel() + "\" &")
 
     def extlib(self,fl,at):
-	if(self.dopen):
-		self.extlibloc = self.dcmdir + "DOPEN/extlib.ded"
-		goon = True
-		if(at=="YES"):
-			flext = fl
-		else:
-			try:
-				num = len(fl.strip().split(".")) - 1
-				if num != 0:
-					flext = fl.strip().split(".")[num]
-				else:
-					fl = self.filedir + "/" + self.label_2.GetLabel()
-				        f = open(fl, 'r')
-					txt = ""
-					for line in f.readlines():
-						if line.startswith("#!/"):
-							flext = line
-					f.close()
-					print flext
-					try:
-						num = len(fl.strip().split("/")) - 1
-						flext = flext.split().strip("/")[num]
-					except:
-						#try:
-						#	flext = flext.strip().split(" ")[1]
-						#except:
-						#	self.SetStatusText("This file does not have an extension and does not contain a header")
-						goon = False
-					
-			except:
-				goon = False
-		if(goon):
-			try:
-				f = open(self.extlibloc, 'r')
-			except:
-				self.log("extlibloc not right")
-			try:
-				for line in f:
-					if flext.strip() == line.strip().split("|")[0]:
-						strip = line.strip().split("|")[1]
-				return strip
-			except:
-				self.SetStatusText("Unknown Extension")
-		f.close()
-	else:
-		self.SetStatusText("DOPEN NOT IMPORTED!")
+        if(self.dopen):
+            self.extlibloc = self.dcmdir + "DOPEN/extlib.ded"
+            goon = True
+            if(at=="YES"):
+                flext = fl
+            else:
+                try:
+                    num = len(fl.strip().split(".")) - 1
+                    if num != 0:
+                        flext = fl.strip().split(".")[num]
+                    else:
+                        fl = self.filedir + "/" + self.label_2.GetLabel()
+                        f = open(fl, 'r')
+                        txt = ""
+                        for line in f.readlines():
+                            if line.startswith("#!/"):
+                                flext = line
+                        f.close()
+                        print flext
+                        try:
+                            num = len(fl.strip().split("/")) - 1
+                            flext = flext.split().strip("/")[num]
+                        except:
+                            #try:
+                            #flext = flext.strip().split(" ")[1]
+                            #except:
+                            #self.SetStatusText("This file does not have an extension and does not contain a header")
+                            goon = False
+                except:
+                    goon = False
+            if(goon):
+                try:
+                    f = open(self.extlibloc, 'r')
+                except:
+                    self.log("extlibloc not right")
+                try:
+                    for line in f:
+                        if flext.strip() == line.strip().split("|")[0]:
+                            strip = line.strip().split("|")[1]
+                    return strip
+                except:
+                    self.SetStatusText("Unknown Extension")
+            f.close()
+        else:
+            self.SetStatusText("DOPEN NOT IMPORTED!")
 
     def log(self,string):
-	fl = self.dcmdir + "dcmlog.ded"
-	now = datetime.datetime.now()
-	nu = now.strftime("%Y-%m-%d %H:%M")
-	log = "\n" + nu + " " + string
-	try:
-		f = open(fl, 'a')
-		f.write(log)
-		f.close()
-	except:
-		self.SetStatusText("LOG FILE MISSING")
+        fl = self.dcmdir + "dcmlog.ded"
+        now = datetime.datetime.now()
+        nu = now.strftime("%Y-%m-%d %H:%M")
+        log = "\n" + nu + " " + string
+        try:
+            f = open(fl, 'a')
+            f.write(log)
+            f.close()
+        except:
+            self.SetStatusText("LOG FILE MISSING")
 
     def start_ftp(self):
-	self.host = self.config_get("SSERVER")
-	self.usr = self.config_get("SUSER")
-	self.pswd = self.config_get("SPASS")
-	try:
-		self.ftp = FTP(self.host)
-		self.ftp.login(self.usr,self.pswd)
-		self.SetStatusText("FTP: logged in")
-		self.log("FTP: logged in")
-	except:
-		self.SetStatusText("FTP: Not able to login")
-		self.log("FTP: Not able to login")
-	self.ftpdir = self.ftp.pwd()
-	self.ftpfile = ""
-	self.ftp_show_dir()
+        self.host = self.config_get("SSERVER")
+        self.usr = self.config_get("SUSER")
+        self.pswd = self.config_get("SPASS")
+        try:
+            self.ftp = FTP(self.host)
+            self.ftp.login(self.usr,self.pswd)
+            self.SetStatusText("FTP: logged in")
+            self.log("FTP: logged in")
+        except:
+            self.SetStatusText("FTP: Not able to login")
+            self.log("FTP: Not able to login")
+        self.ftpdir = self.ftp.pwd()
+        self.ftpfile = ""
+        self.ftp_show_dir()
 
     def ftp_show_dir(self):
-	self.list_box_2.Set([])
-	self.list_box_2.Append("[Back]")
-	listdir = self.ftp.nlst(self.ftpdir)
-	for i in listdir:
-    		try:
-		        self.ftp.size(i)
-        		self.list_box_2.Append(i)
-		except:
-        		self.list_box_2.Append("[F]" + i)
-	#self.SetStatusText("Directory List Updated")
-	#self.log("Directory List Updated")
+        self.list_box_2.Set([])
+        self.list_box_2.Append("[Back]")
+        listdir = self.ftp.nlst(self.ftpdir)
+        for i in listdir:
+            try:
+                self.ftp.size(i)
+                self.list_box_2.Append(i)
+            except:
+                self.list_box_2.Append("[F]" + i)
+        #self.SetStatusText("Directory List Updated")
+        #self.log("Directory List Updated")
 
     def ftp_list(self, event): # wxGlade: MyFrame.<event_handler>
-	if event.GetString().startswith("[F]"):
-		self.ftpdir = "./" + event.GetString().strip().split("]")[1]
-		self.ftp_show_dir()
-	elif "[Back]" in event.GetString():
-		if(self.ftpdir.rpartition("/")[0] == ''):
-			self.ftpdir = '.'
-		else:
-			self.ftpdir = self.ftpdir.rpartition("/")[0]
-		self.ftp_show_dir()
-	else:
-		self.label_14.SetLabel(event.GetString())
-		self.ftpfile = event.GetString()
+        if event.GetString().startswith("[F]"):
+            self.ftpdir = "./" + event.GetString().strip().split("]")[1]
+            self.ftp_show_dir()
+        elif "[Back]" in event.GetString():
+            if(self.ftpdir.rpartition("/")[0] == ''):
+                self.ftpdir = '.'
+            else:
+                self.ftpdir = self.ftpdir.rpartition("/")[0]
+            self.ftp_show_dir()
+        else:
+            self.label_14.SetLabel(event.GetString())
+            self.ftpfile = event.GetString()
 
     def ftp_download(self,ftp):
-	ftpdir = ftp.rpartition("/")[0]
-	ftpfile = ftp.rpartition("/")[2]
-	self.ftp.cwd('/' + ftpdir)
-	retr = 'RETR ' + ftpfile
-	ftpp = self.dcmdir + 'ftp.ded'
-	self.ftp.retrbinary(retr, open(ftpp,'w').write)
-	txt = ''
-	f = open(ftpp, 'r')
-	for line in f.readlines():
-		txt = txt + line
-	f.close()
-	self.notebook_1.SetSelection(2)
-	self.dedfrom = "ftp"
-	self.text_ctrl_8.SetValue(txt)
+        ftpdir = ftp.rpartition("/")[0]
+        ftpfile = ftp.rpartition("/")[2]
+        self.ftp.cwd('/' + ftpdir)
+        retr = 'RETR ' + ftpfile
+        ftpp = self.dcmdir + 'ftp.ded'
+        self.ftp.retrbinary(retr, open(ftpp,'w').write)
+        txt = ''
+        f = open(ftpp, 'r')
+        for line in f.readlines():
+            txt = txt + line
+        f.close()
+        self.notebook_1.SetSelection(2)
+        self.dedfrom = "ftp"
+        self.text_ctrl_8.SetValue(txt)
 
     def ftp_upload(self):
-	try:
-		lastdir = self.config_get("SLASTDIR")
-		lastfile = self.config_get("SLASTFILE")
-		self.ftp.cwd('/' + lastdir)
-		stor = 'STOR ' + lastfile
-		fttp = self.dcmdir + 'ftp.ded'
-		self.ftp.storbinary(stor, open(fttp))
-	except:
-		self.log("FTP:Upload:Error")
-		self.SetStatusText("FTP:Upload:Error")
+        try:
+            lastdir = self.config_get("SLASTDIR")
+            lastfile = self.config_get("SLASTFILE")
+            self.ftp.cwd('/' + lastdir)
+            stor = 'STOR ' + lastfile
+            fttp = self.dcmdir + 'ftp.ded'
+            self.ftp.storbinary(stor, open(fttp))
+        except:
+            self.log("FTP:Upload:Error")
+            self.SetStatusText("FTP:Upload:Error")
 
     def ftp_start(self, event): # wxGlade: MyFrame.<event_handler>
         self.start_ftp()
@@ -925,63 +926,137 @@ class MyFrame(wx.Frame):
 
     def dedsave(self, event): # wxGlade: MyFrame.<event_handler>
         if(self.dedfrom == 'ftp'):
-		ftpp = self.dcmdir + 'ftp.ded'
-		try:
-			open(ftpp, 'w').write(self.text_ctrl_8.GetValue())
-		except:
-			self.log("error with deditor save ftp")
-	elif(self.dedfrom == 'fm'):
-		fl = self.dedfl
-		try:
-			g = open(fl,'w')
-			g.write(self.text_ctrl_8.GetValue())
-			g.close()
-		except:
-			self.log("error with deditor save fm")
+            ftpp = self.dcmdir + 'ftp.ded'
+            try:
+                open(ftpp, 'w').write(self.text_ctrl_8.GetValue())
+            except:
+                self.log("error with deditor save ftp")
+        elif(self.dedfrom == 'fm'):
+            fl = self.dedfl
+            try:
+                g = open(fl,'w')
+                g.write(self.text_ctrl_8.GetValue())
+                g.close()
+            except:
+                self.log("error with deditor save fm")
 
     def change_dir(self, event): # wxGlade: MyFrame.<event_handler>
         self.chgedirframe = ChangeDirPanel(MyFrame(self), -1, "")
-	self.chgedirframe.Show()
+        self.chgedirframe.Show()
 
     def secded(self, event): # wxGlade: MyFrame.<event_handler>
-        self.SetStatusText("Not implemented yet")
+        self.SetStatusText("Opened deditor in own window")
+        #if(self.dedget("location" != (self.dcmdir + "/Deditor/configuration.ded"))):
+        #self.dedset("location",(self.dcmdir + "/Deditor/configuration.ded"))
+        os.system(self.dcmdir + "/deditor.py &")
+
+    def dedset(self, name, new):
+        self.dedconf = self.dcmdir + "/Deditor/configuration.ded"
+        last = self.dedget(name)
+        last = name + " " + last
+        new = name + " " + new
+        try:
+            s = open(self.dedconf, 'r').read()
+        except:
+            myframe.log("error: could not open" + self.dedconf + " error generated in config_set")
+        s = s.replace(last, new)
+        f = open(self.dedconf, 'w')
+        f.write(s)
+        f.close()
+
+    def dedget(self,name):
+        self.dedconf = self.dcmdir + "/Deditor/configuration.ded"
+        try:
+            f = open(self.dedconf, 'r')
+        except:
+            self.log("error: could not open" + self.dedconf + " error generated in config_get")
+        for line in f:
+            if name.strip() == line.strip().split(" ")[0]:
+                strip = line.strip().split(" ")[1]
+        return strip
+        f.close()
 
     def chmod(self, event): # wxGlade: MyFrame.<event_handler>
-	mode=self.text_ctrl_12.GetValue()
-	if(self.radio_box_1.GetSelection()==0):
-		os.system("chmod "+mode+" "+self.abspath)
-	else:
-		chmod=""
-		for i in mode:
-			if i == "-":
-				chmod+="0"
-			else:
-				chmod+="1"
-		user=int(chmod[0:3],2)
-		group=int(chmod[3:6],2)
-		others=int(chmod[6::],2)
-		chmod=str(user)+str(group)+str(others)
-		os.system("chmod "+chmod+" "+self.abspath)
+        mode=self.text_ctrl_12.GetValue()
+        if(self.radio_box_1.GetSelection()==0):
+            os.system("chmod "+mode+" "+self.abspath)
+        else:
+            chmod=""
+            for i in mode:
+                if i == "-":
+                    chmod+="0"
+                else:
+                    chmod+="1"
+            user=int(chmod[0:3],2)
+            group=int(chmod[3:6],2)
+            others=int(chmod[6::],2)
+            chmod=str(user)+str(group)+str(others)
+            os.system("chmod "+chmod+" "+self.abspath)
 
     def chmod_init(self):
-	lvl=""
-	if(self.radio_box_1.GetSelection()==0):
-		lvl=oct(stat.S_IMODE(os.lstat(self.abspath)[stat.ST_MODE]))
-	else:
-		mode=stat.S_IMODE(os.lstat(self.abspath)[stat.ST_MODE])
-	        for level in "USR", "GRP", "OTH":
-        	    for perm in "R", "W", "X":
-        	        if mode & getattr(stat,"S_I"+perm+level):
-        	            lvl+=perm
-			else:
-			    lvl+="-"
-	self.text_ctrl_12.SetValue(lvl)
+        lvl=""
+        if(self.radio_box_1.GetSelection()==0):
+            lvl=oct(stat.S_IMODE(os.lstat(self.abspath)[stat.ST_MODE]))
+        else:
+            mode=stat.S_IMODE(os.lstat(self.abspath)[stat.ST_MODE])
+            for level in "USR", "GRP", "OTH":
+                for perm in "R", "W", "X":
+                    if mode & getattr(stat,"S_I"+perm+level):
+                        lvl+=perm
+                    else:
+                        lvl+="-"
+        self.text_ctrl_12.SetValue(lvl)
 
     def init_chmod(self, event): # wxGlade: MyFrame.<event_handler>
         self.chmod_init()
 
     def extlibman(self, event): # wxGlade: MyFrame.<event_handler>
         os.system(self.dcmdir + "/DOPEN/extlibman &")
+
+    def extupdate(self, event): # wxGlade: MyFrame.<event_handler>
+        p=os.popen(self.dcmdir + "/dcmd -u")
+        version=p.readlines()
+        p.close()
+        if p == "uptodate":
+            pass
+        else:
+            os.system("curl http://d-cm.googlecode.com/files/extlib.ded -o "+self.dcmdir+"/DOPEN/dwnext.ded &")
+            append=""
+            content=""
+            x="n"
+            g_data=open(self.dcmdir+"/DOPEN/extlib.ded",'r').readlines()
+            f_data=open(self.dcmdir+"/DOPEN/dwnext.ded",'r').readlines()
+            for line in f_data:
+                for ln in g_data:
+                    if line.strip().split("|")[0] == ln.strip().split("|")[0]:
+                        x="y"
+                    if line.strip().split("|")[0] == "@DCM:VERSION":
+                        dwnvers=line
+                if x!="y":
+                    append=append+line
+                x="n"
+            try:
+                f=open(self.dcmdir+"/DOPEN/extlib.ded",'a')
+                f.write(append)
+                f.close()
+            except:
+                print "e1"
+            try:
+                f = open(self.dcmdir+"/DOPEN/extlib.ded",'r')
+                for line in f:
+                    if line.strip().split("|")[0] == "@DCM:VERSION":
+                        content+=dwnvers
+                    else:
+                        content+=line
+                f.close()
+            except:
+              print "e2"
+            try:
+                f = open(self.dcmdir+"/DOPEN/extlib.ded",'w')
+                f.write(content)
+                f.close()
+            except:
+                print "e3"
 
 # end of class MyFrame
 

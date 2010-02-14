@@ -1,0 +1,23 @@
+#Configuration.ded
+#Configuration file of DEDITOR..
+
+#####################################
+# AFTER EACH CHANGE, YOU NEED TO RESTART DEDITOR!!! #
+#####################################
+
+#If set to YES, DEDITOR will show the last opened file on startup
+#If set to CHOSEN, DEDITOR will show the file you chose below
+#If set to NO, DEDITOR will show the help page on startup.
+startlast NO
+last-opened /
+chosen-opened /
+
+location /
+
+##FTP Conf.
+host
+user
+password
+directory /
+ftpfilename
+
