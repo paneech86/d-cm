@@ -608,9 +608,11 @@ class MyFrame(wx.Frame):
         f.close()
 
     def open_file(self, event): # wxGlade: MyFrame.<event_handler>
-        self.SetStatusText("this currently serves an other purpose...")
-        self.sctframe = ShortCut(MyFrame(self), -1, "")
-        self.sctframe.Show()
+        dlg = wx.FileDialog(self, message="Open File", defaultDir=self.filedir, defaultFile="", style=wx.OPEN)
+        if dlg.ShowModal() == wx.ID_OK:   
+            self.opnfl = dlg.GetPath()
+            self.editfl(self.opnfl)
+        dlg.Destroy()
 
     def quit(self, event): # wxGlade: MyFrame.<event_handler>
         self.Close()
@@ -677,6 +679,17 @@ class MyFrame(wx.Frame):
 
     def edit(self, event): # wxGlade: MyFrame.<event_handler>
         fl = self.filedir + "/" + self.label_2.GetLabel()
+        f = open(fl, 'r')
+        txt = ""
+        for line in f.readlines():
+            txt = txt + line
+        f.close()
+        self.notebook_1.SetSelection(2)
+        self.dedfrom = "fm"
+        self.dedfl = fl
+        self.text_ctrl_8.SetValue(txt)
+
+    def editfl(self, fl):
         f = open(fl, 'r')
         txt = ""
         for line in f.readlines():
