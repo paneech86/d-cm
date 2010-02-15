@@ -52,10 +52,9 @@ class ChangeDirPanel(wx.Frame):
         # end wxGlade
 
     def changedir(self, event): # wxGlade: ChangeDirPanel.<event_handler>
-        myframe = MyFrame(None, -1, "")
-        myframe.SetStatusText("Hello")
-        myframe.filedir = self.text_ctrl_16.GetValue()
-        myframe.file_show_dir
+        dcm.filedir = self.text_ctrl_16.GetValue()
+        dcm.file_show_dir()
+        self.Close()
 
     def cancel(self, event): # wxGlade: ChangeDirPanel.<event_handler>
         self.Close()
@@ -76,7 +75,7 @@ class DedFrame(wx.MDIChildFrame):
 
     def __set_properties(self):
         # begin wxGlade: DedFrame.__set_properties
-        self.SetTitle("frame_1")
+        self.SetTitle("dcm")
         # end wxGlade
 
     def __do_layout(self):
@@ -131,7 +130,6 @@ class SendDialog(wx.Dialog):
 
     def send_ftp(self, event): # wxGlade: SendDialog.<event_handler>
         if(self.text_ctrl_10.GetValue()):
-            myframe = MyFrame(None, -1, "")
             lastdir = self.text_ctrl_10.GetValue()
             if(lastdir.startswith("/")):
                 lastdir = lastdir.partition("/")[2]
@@ -150,8 +148,8 @@ class SendDialog(wx.Dialog):
                 g.write(label)
                 g.close()
             except:
-                myframe.log("FTP:SEND:error")
-            myframe.ftp_upload()
+                dcm.log("FTP:SEND:error")
+            dcm.ftp_upload()
             self.Destroy()
 
 # end of class SendDialog
@@ -204,8 +202,7 @@ class OptionFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.ftp_config, self.button_13)
         # end wxGlade
 
-        myframe = MyFrame(None, -1, "")
-        value = myframe.config_get("GSTARTUP")
+        value = dcm.config_get("GSTARTUP")
         if(value == "MySQL"):
             self.combo_box_1.SetValue("MySql")
         elif(value == "Deditor"):
@@ -214,24 +211,24 @@ class OptionFrame(wx.Frame):
             self.combo_box_1.SetValue("FTP")
         else:
             self.combo_box_1.SetValue("File Manager")
-        value = myframe.config_get("MSTART")
+        value = dcm.config_get("MSTART")
         if(value == "YES"):
             self.checkbox_10.SetValue(1)
         else:
             self.checkbox_10.SetValue(0)
-        value = myframe.config_get("MSERVER")
+        value = dcm.config_get("MSERVER")
         self.text_ctrl_3.SetValue(value)
-        value = myframe.config_get("MUSER")
+        value = dcm.config_get("MUSER")
         self.text_ctrl_4.SetValue(value)
-        value = myframe.config_get("MPASS")
+        value = dcm.config_get("MPASS")
         self.text_ctrl_5.SetValue(value)
-        value = myframe.config_get("MDATA")
+        value = dcm.config_get("MDATA")
         self.text_ctrl_6.SetValue(value)
-        value = myframe.config_get("SSERVER")
+        value = dcm.config_get("SSERVER")
         self.text_ctrl_13.SetValue(value)
-        value = myframe.config_get("SUSER")
+        value = dcm.config_get("SUSER")
         self.text_ctrl_14.SetValue(value)
-        value = myframe.config_get("SPASS")
+        value = dcm.config_get("SPASS")
         self.text_ctrl_15.SetValue(value)
 
     def __set_properties(self):
@@ -303,15 +300,14 @@ class OptionFrame(wx.Frame):
         # end wxGlade
 
     def config_set(self,name,new):
-        myframe = MyFrame(None, -1, "")
-        self.config = myframe.dcmdir + "config.ded"
-        last = myframe.config_get(name)
+        self.config = dcm.dcmdir + "config.ded"
+        last = dcm.config_get(name)
         last = name + "|" + last
         new = name + "|" + new
         try:
             s = open(self.config, 'r').read()
         except:
-            myframe.log("error: could not open" + self.config + " error generated in config_set")
+            dcm.log("error: could not open" + self.config + " error generated in config_set")
         s = s.replace(last, new)
         f = open(self.config, 'w')
         f.write(s)
@@ -329,11 +325,10 @@ class OptionFrame(wx.Frame):
         self.config_set("GSTARTUP",selection)
 
     def mysql_default(self, event): # wxGlade: OptionFrame.<event_handler>
-        myframe = MyFrame(None, -1, "")
-        server = myframe.config_get("MSERVER")
-        muser = myframe.config_get("MUSER")
-        mpass = myframe.config_get("MPASS")
-        mdata = myframe.config_get("MDATA")
+        server = dcm.config_get("MSERVER")
+        muser = dcm.config_get("MUSER")
+        mpass = dcm.config_get("MPASS")
+        mdata = dcm.config_get("MDATA")
         if((server != 'None') and (muser != 'None') and (mpass != 'None') and (mdata != 'None')):
             if(self.checkbox_10.GetValue() == 0):
                 selection = "NO"
@@ -342,7 +337,7 @@ class OptionFrame(wx.Frame):
             self.config_set("MSTART",selection)
         else:
             self.checkbox_10.SetValue(0)
-            myframe.SetStatusText("Please fill in a servername/username/password or databasename")
+            dcm.SetStatusText("Please fill in a servername/username/password or databasename")
 
     def mysql_database(self, event): # wxGlade: OptionFrame.<event_handler>
         if(self.text_ctrl_3.GetValue() and self.text_ctrl_4.GetValue() and self.text_ctrl_5.GetValue() and self.text_ctrl_6.GetValue()):
@@ -941,8 +936,8 @@ class MyFrame(wx.Frame):
                 self.log("error with deditor save fm")
 
     def change_dir(self, event): # wxGlade: MyFrame.<event_handler>
-        self.chgedirframe = ChangeDirPanel(MyFrame(self), -1, "")
-        self.chgedirframe.Show()
+        chgdir=ChangeDirPanel(None, -1, "")
+        chgdir.Show()
 
     def secded(self, event): # wxGlade: MyFrame.<event_handler>
         self.SetStatusText("Opened deditor in own window")
