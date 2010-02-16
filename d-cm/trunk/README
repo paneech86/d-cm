@@ -1,6 +1,7 @@
 README
 
 Contents:
+-Prerequisites
 -Instalation
 -Directory Tree
 -Running
@@ -11,30 +12,53 @@ Contents:
 ->ftp
 ->dcmd
 ->dcmsvn
-->Future projects
+->extlib manager
+->derminal
+
+Prerequisites
+
+You need at least 2 things to run D-CM well:
+-Python (2.6 or later)	http://www.python.org/download/linux/
+-wxPython			http://www.wxpython.org/download.php
+
+Modules used in D-CM:
+-wx			wxPython Module
+-os			default included in Python;	used for file operations
+-datetime	default included in Python;	used for time and date in the log files
+-stat		default included in Python;	used for chmod
+-ftplib		FTP Module
+-MySQLdb	MySQL Module
+
 
 Installation
 
 -Download the latest .tar.gz file from sourceforge (http://www.sourceforge.net/projects/d-cm)
 -extract it & you can start using dcm
 
+
 Directory Tree
 
 -DCM
-->DOPEN		special folder for dopen
--->extlib.ded	returns a command based on the extension (*)
-->dcm		main program
-->dcmlog.ded	the log file, if there appears an error you have to check this line
-->CHANGELOG	the changelog
-->README	this file
-->config.ded	the configuration file
-->dcmd		a command line file (**)
-->dcmsvn	a command line file utility for svn actions
-->ftp.ded	a file for handling ftp (***)
+->DOPEN			special folder for dopen
+-->extlib.ded			returns a command based on the extension (*)
+-->extlibman			Extlib Manager, used to change the extlib.ded file with a GUI
+-->dwnext.ded		Temporary save from the newest extlib.ded
+->Deditor			special folder for deditor
+-->configuration.ded	configuration file for deditor
+->dcm				main program
+->dcmlog.ded			the log file, if there appears an error you have to check this line
+->CHANGELOG		the changelog
+->README			this file
+->config.ded			the configuration file
+->dcmd				a command line file (**)
+->dcmsvn			a command line file utility for svn actions
+->ftp.ded			a file for handling ftp (***)
+->deditor.py			standalone version of deditor
 
-(*)	for example: .txt gives gedit  .mp3 gives vlc   .py gives xterm -hold -e
+(*)	this command will be directly used in terminal followed by the filename.
 (**)	this file has handy options like returning the status, giving the ammount of rules in exlib,...
 (***)	it's a copy of the last file downloaded from the ftp-server
+
 
 Running
 
@@ -47,42 +71,48 @@ I suppose dcm is located in your home directory.
 	- doubleclick on dcm
 	- choose run
 
+
 Features
 
 -File Manager
 	The file Manager has 2 parts
 	the left part is to navigate trough your directories, by doubleclicking the selected file will appear in the right window
 	or if it is a folder (indicated with [F]) it will display the folder contents on the left.
-	the right part is to control a file. You can rename the file, open the file with its default program (DOPEN needed), ...
+	the right part is to control a file.
+	You can Rename/Chmod/Edit and Open files
+	Edit will show the file in deditor
+	DOPEN will open the file with the default program in extlib.ded (this can be modified with the Extlib Manager)
+
 -MySql
 	This tab, is to control your Databases.  (DCM currently only supports MySql databases)
 	After specifying your host,user and password in the configuration window (DCM->Options->Mysql) and starting mysql (MySql->Start)
 	you will see on the left a list with all your tables and on the right, a box to enter queries, and an output box
+
 -Deditor
 	This is a basic editor which can do simple tasks and upload it's content to the web trough ftp.
 	There is also a standalone version of deditor included in the D-CM-package.
+
 -Ftp
-	This works the same way as the file manager except it shows a ftp dir.
+	This works the same way as the file manager except it uses a ftp dir.
+
 -Dcmd
 	This is a program that is only available from terminal.
 	the possible commands:
 	dcmd -s		simply returns: 'DCM is running' or 'DCM is not running'
-	dcmd -e		returns the ammount of rules in DOPEN/extlib.de
-	*futur commands:
-	dcmd -m		mysql default on/off
-	dcmd -f		ftp default on/off
-	dcmd -v		DCM version
-	dcmd -u		Update/Upgrade DCM with curl + tar
-	dcmd -x		Update/Upgrade the extlib package
+	dcmd -e		returns the ammount of rules in DOPEN/extlib.ded
+	dcmd -u		Update/Upgrade the extlib package
+
 -Dcmsvn
 	This program is used for contributors that use svn.
 	(it will not be included in a standard release, but you can download it in the downloads tab or with svn)
 	Commands:
-	dcmsvn -s	is the equal of svn status
-	dcmsvn -c	is the equal of svn commit, but asks for the commit information instead of using the "-m 'commit info'" command
-	dcmsvn -S	Synchronizes with the project repository on google code.  Asks for username before synching.
-	Handy:
-	After doing dcmsvn -s, you can do dcmsvn -cS to commit changes and synchronize in one command =)
--Future Projects:
-	Derminal:	terminal integrated in d-cm
-	extlib Manager:	A GUI to choose your extlib opening files
+	dcmsvn -s		is the equal of svn status
+	dcmsvn -c		is the equal of svn commit, but asks for the commit information instead of using the "-m 'commit info'" command
+	dcmsvn -S		Synchronizes with the project repository on google code.  Asks for username before synching.
+	TIP:dcmsvn -cS	Commit your info and directly Synchronize in one command
+
+-Derminal
+	this is a "terminal" integrated in D-CM. it is not a real copy of a terminal, to use this do: DCM->Terminal Window      in the menubar,this will open gnome-terminal with the current 	directory in the filemanager.
+	Derminal instead is used to do a single command, so everytime you do a command a new terminal is used.
+	This is very import because if you want to do "cd" and then "ls" you will have to do:
+	"cd ~/.../... && ls" <- in one line and not first cd and then ls
