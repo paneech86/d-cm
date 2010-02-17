@@ -26,7 +26,6 @@ extupdate () {
 	else
 		echo "uptodate"
 	fi
-		
 }
 status () {
 	if [[ `ps ax | grep -v grep | grep dcm$` ]]
@@ -36,14 +35,52 @@ status () {
 		echo "dcm is not running"
 	fi
 }
-while getopts esu opt
+update () {
+    latest=`curl http://d-cm.googlecode.com/files/latest_version`
+    locl="./config.ded"
+    for name in $(<$locl)
+    do
+        e=$e"\n"$name
+    done
+    for line in `echo -e $e`
+    do
+        if [[ $line == @DCM:VERSION* ]]
+        then
+            local=${line#*|}
+        fi
+    done
+    if [[ $latest > $local ]]
+    then
+        crl=`curl http://d-cm.googlecode.com/files/$latest -o $latest.tar.gz`
+        echo "$latest.tar.gz downloaded"
+        if [[ -d ./backups/ ]]
+        then
+            echo "backup dir found"
+        else
+            echo "backup dir not found"
+            mkdir ./backups/
+            echo "backup dir created"
+        fi
+        rsync -r --exclude='backups' ./ ./backups
+        echo "All files except the tar.gz copied to ./backups"
+        tar xvzf $latest.tar.gz
+        echo "All files extracted"
+        rm $latest.tar.gz
+        rm ./backups/$latest.tar.gz
+        echo "D-CM is upgraded to version $latest"
+    else
+        echo "D-CM is already the newest version"
+    fi
+}
+while getopts esuU opt
 do
     case "$opt" in
       e)  extlib_count ;;
       s)  status ;;
       u)  extupdate ;;
+      U)  update ;;
       \?) echo >&2 \
-	  "usage: $0 [-e] [-s] [-u]"
+	  "usage: $0 [-e] [-s] [-u] [-U]"
 	  exit 1;;
     esac
 done
@@ -51,4 +88,5 @@ echo "usage: $0 [-e] [-s]"
 echo "-e: Get the number of lines in extlib"
 echo "-s: Status"
 echo "-u: update extlib"
+echo "-U: Update D-CM"
 shift `expr $OPTIND - 1`
