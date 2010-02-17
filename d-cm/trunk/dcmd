@@ -51,8 +51,8 @@ update () {
     done
     if [[ $latest > $local ]]
     then
-        crl=`curl http://d-cm.googlecode.com/files/$latest -o $latest.tar.gz`
-        echo "$latest.tar.gz downloaded"
+        crl=`curl http://d-cm.googlecode.com/files/d-cm_v$latest.tar.gz -o d-cm_v$latest.tar.gz`
+        echo "d-cm_v$latest.tar.gz downloaded"
         if [[ -d ./backups/ ]]
         then
             echo "backup dir found"
@@ -63,10 +63,10 @@ update () {
         fi
         rsync -r --exclude='backups' ./ ./backups
         echo "All files except the tar.gz copied to ./backups"
-        tar xvzf $latest.tar.gz
+        tar xvzf d-cm_v$latest.tar.gz
         echo "All files extracted"
-        rm $latest.tar.gz
-        rm ./backups/$latest.tar.gz
+        rm d-cm_v$latest.tar.gz
+        rm ./backups/d-cm_v$latest.tar.gz
         echo "D-CM is upgraded to version $latest"
     else
         echo "D-CM is already the newest version"
