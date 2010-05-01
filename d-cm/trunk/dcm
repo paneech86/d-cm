@@ -417,6 +417,8 @@ class MyFrame(wx.Frame):
         self.button_4 = wx.Button(self.notebook_3_pane_2, -1, "Chmod")
         self.radio_box_1 = wx.RadioBox(self.notebook_3_pane_2, -1, "chmod input", choices=["octal", "symbolic"], majorDimension=0, style=wx.RA_SPECIFY_ROWS)
         self.label_17 = wx.StaticText(self.notebook_3_pane_2, -1, "example:\nOctal        (0)755\nSymbolic  rwxr-xr-x")
+        self.text_ctrl_19 = wx.TextCtrl(self.notebook_3_pane_2, -1, "Passphrase")
+        self.button_15 = wx.Button(self.notebook_3_pane_2, -1, "DCrypt")
         self.list_box_3 = wx.ListBox(self.notebook_1_pane_2, -1, choices=[])
         self.text_ctrl_2 = wx.TextCtrl(self.notebook_1_pane_2, -1, "")
         self.button_7 = wx.Button(self.notebook_1_pane_2, -1, "Run!")
@@ -453,6 +455,7 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.rename, self.button_3)
         self.Bind(wx.EVT_BUTTON, self.chmod, self.button_4)
         self.Bind(wx.EVT_RADIOBOX, self.init_chmod, self.radio_box_1)
+        self.Bind(wx.EVT_BUTTON, self.dcrypt, self.button_15)
         self.Bind(wx.EVT_BUTTON, self.do_query, self.button_7)
         self.Bind(wx.EVT_LISTBOX_DCLICK, self.ftp_list, self.list_box_2)
         self.Bind(wx.EVT_BUTTON, self.fdown, self.button_10)
@@ -485,6 +488,7 @@ class MyFrame(wx.Frame):
         self.text_ctrl_1.SetMinSize((400, 27))
         self.text_ctrl_12.SetMinSize((400, 27))
         self.radio_box_1.SetSelection(0)
+        self.text_ctrl_19.SetMinSize((400, 27))
         self.notebook_1_pane_1.SetBackgroundColour(wx.Colour(216, 216, 191))
         self.list_box_3.SetMinSize((350, 63))
         self.text_ctrl_2.SetMinSize((250, 27))
@@ -514,7 +518,7 @@ class MyFrame(wx.Frame):
         grid_sizer_5 = wx.GridSizer(2, 2, 0, 0)
         sizer_2 = wx.BoxSizer(wx.HORIZONTAL)
         sizer_16 = wx.BoxSizer(wx.VERTICAL)
-        grid_sizer_6 = wx.GridSizer(3, 2, 0, 0)
+        grid_sizer_6 = wx.GridSizer(4, 2, 0, 0)
         sizer_14 = wx.BoxSizer(wx.VERTICAL)
         grid_sizer_1 = wx.GridSizer(5, 2, 0, 0)
         sizer_2.Add(self.list_box_1, 0, wx.EXPAND|wx.ADJUST_MINSIZE, 0)
@@ -532,6 +536,8 @@ class MyFrame(wx.Frame):
         grid_sizer_6.Add(self.button_4, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
         grid_sizer_6.Add(self.radio_box_1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
         grid_sizer_6.Add(self.label_17, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
+        grid_sizer_6.Add(self.text_ctrl_19, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
+        grid_sizer_6.Add(self.button_15, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.ADJUST_MINSIZE, 0)
         sizer_16.Add(grid_sizer_6, 0, wx.EXPAND, 0)
         self.notebook_3_pane_2.SetSizer(sizer_16)
         self.notebook_3.AddPage(self.notebook_3_pane_1, "Basic")
@@ -1087,6 +1093,10 @@ class MyFrame(wx.Frame):
 
     def terminal(self, event): # wxGlade: MyFrame.<event_handler>
         os.system("gnome-terminal --working-directory=\""+self.filedir+"\" &")
+
+    def dcrypt(self, event): # wxGlade: MyFrame.<event_handler>
+        print "Event handler `dcrypt' not implemented"
+        event.Skip()
 
 # end of class MyFrame
 
